@@ -20,30 +20,32 @@ class ExpenseServiceTest {
 
     @Test
     void should_return_expense_type_A_if_project_is_external_and_name_is_project_A() throws UnexpectedProjectTypeException {
-        Project project = new Project(ProjectType.EXTERNAL, "projectA");
+        Project project = new Project(ProjectType.EXTERNAL, "Project A");
+        ExpenseType expenseType = ExpenseService.getExpenseCodeByProjectTypeAndName(project);
 
-        Assertions.assertSame(ProjectType.EXTERNAL,project.getProjectType());
-        Assertions.assertEquals("projectA",project.getProjectName());
+        Assertions.assertSame(ExpenseType.EXPENSE_TYPE_A,expenseType);
     }
 
     @Test
     void should_return_expense_type_B_if_project_is_external_and_name_is_project_B() throws UnexpectedProjectTypeException {
-        // given
-        // when
-        // then
+        Project project = new Project(ProjectType.EXTERNAL, "Project B");
+        ExpenseType expenseType = ExpenseService.getExpenseCodeByProjectTypeAndName(project);
+
+        Assertions.assertSame(ExpenseType.EXPENSE_TYPE_B,expenseType);
     }
 
     @Test
     void should_return_other_expense_type_if_project_is_external_and_has_other_name() throws UnexpectedProjectTypeException {
-        // given
-        // when
-        // then
+        Project project = new Project(ProjectType.EXTERNAL,"other project");
+        ExpenseType expenseType = ExpenseService.getExpenseCodeByProjectTypeAndName(project);
+
+        Assertions.assertSame(ExpenseType.OTHER_EXPENSE,expenseType);
     }
 
     @Test
     void should_throw_unexpected_project_exception_if_project_is_invalid() {
-        // given
-        // when
-        // then
+        Project project = new Project(ProjectType.UNEXPECTED_PROJECT_TYPE,"project C");
+
+        Assertions.assertThrows(UnexpectedProjectTypeException.class,()-> ExpenseService.getExpenseCodeByProjectTypeAndName(project));
     }
 }

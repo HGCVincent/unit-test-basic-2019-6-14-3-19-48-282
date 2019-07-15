@@ -1,5 +1,7 @@
 package ExpenseService.Project;
 
+import ExpenseService.Expense.ExpenseType;
+
 public class Project {
     
     private ProjectType projectType;
